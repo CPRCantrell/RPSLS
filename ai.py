@@ -2,7 +2,8 @@ from player import Player
 import random as r
 class Ai(Player):
     def __init__(self) -> None:
-        super().__init__()
+        self.name_list = ['M3gan', 'Bastion', 'BB8', 'R2D2', 'Data']
+        super().__init__(r.choice(self.name_list))
 
     def select_gesture(self):
         self.selected_gesture = r.choice(self.gestures)

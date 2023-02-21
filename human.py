@@ -1,8 +1,8 @@
 from player import Player
 import time
 class Human(Player):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, name) -> None:
+        super().__init__(name)
 
     def select_gesture(self):
         self.display_gestures()
