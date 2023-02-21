@@ -28,20 +28,21 @@ class RpslsGame:
         input("\n\n\n\nPress ENTER to choose the players")
 
     def play(self) -> None:
-        pass
+        while self._player_list[0].points < 2 and self._player_list[1].points < 2:
+            self.perform_round()
 
     def assign_players(self) -> None:
         selection_made = False
         player1 = Human()
         player1.name = "Player 1"
         self._player_list.append(Human())
+        RpslsGame._clear_screen()
+        print("Please choose the player settings:\n\n")
+        print("1. You versus an AI Player")
+        print("2. You versus another human Player\n")
         while not selection_made:
             try:
-                RpslsGame._clear_screen()
-                print("Please choose the player settings:\n\n")
-                print("1. You versus an AI Player")
-                print("2. You versus another human Player")
-                input_string = input("\n\nYour Selection: ")
+                input_string = input("\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
                     player2 = Ai()
