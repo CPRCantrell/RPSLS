@@ -33,9 +33,7 @@ class RpslsGame:
 
     def assign_players(self) -> None:
         selection_made = False
-        player1 = Human()
-        player1.name = "Player 1"
-        self._player_list.append(Human())
+        self._player_list.append(Human("Player 1"))
         RpslsGame._clear_screen()
         print("Please choose the player settings:\n\n")
         print("1. You versus an AI Player")
