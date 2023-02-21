@@ -45,20 +45,18 @@ class RpslsGame:
                 input_string = input("\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
-                    player2 = Ai()
-                    player2.name = "AI Player"
-                    self._player_list.append(Ai())
+                    self._player_list.append(Ai("AI Player"))
+                    print("\nCreated Human versus AI game")
                     selection_made = True
                 elif input_as_int == 2:
-                    player2 = Ai()
-                    player2.name = "Player 2"
-                    self._player_list.append(Human())
+                    self._player_list.append(Human("Player 2"))
+                    print("\nCreated Human versus AI game")
                     selection_made = True
                 else:
                     raise Exception()
             except:
                 print("Input not recognized")
-
+        input("Press enter when you are ready to play")
 
     def _clear_screen() -> None:
         # for windows
@@ -70,8 +68,3 @@ class RpslsGame:
             _ = system('clear')
 
 
-game = RpslsGame()
-game.display_welcome()
-game.display_rules()
-game.assign_players()
-game.play()
