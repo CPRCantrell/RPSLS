@@ -5,4 +5,4 @@ class Ai(Player):
         super().__init__()
 
     def select_gesture(self):
-        return str(r.choice(self.gestures))
+        return r.choice(self.gestures)
