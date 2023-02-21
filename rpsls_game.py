@@ -68,8 +68,3 @@ class RpslsGame:
             _ = system('clear')
 
 
-game = RpslsGame()
-game.display_welcome()
-game.display_rules()
-game.assign_players()
-game.play()
