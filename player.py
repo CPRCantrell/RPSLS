@@ -6,3 +6,6 @@ class Player:
 
     def select_gesture():
         pass
+
+    def __str__(self) -> str:
+        self.selected_gesture
