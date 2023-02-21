@@ -18,8 +18,13 @@ class RpslsGame:
         pass
 
     def display_rules(self) -> None:
-        pass
-
+        print("\n\nYou will choose the either play by yourself against an AI, or against another player")
+        print("When the game starts, you will be given an opportunity to select which gesture you")
+        print("want to throw. You will pick from the following list of gestures:")
+        print("Rock\nPaper\nScissors\nLizzard\nSpock")
+        print("\nFor whichever gesture you choose, it will be able to beat 2 other gestures and will")
+        print("be able to be beaten by two other gestures.")
+        input("\n\n\n\nPress ENTER to choose the players")
     def play(self) -> None:
         pass
 
