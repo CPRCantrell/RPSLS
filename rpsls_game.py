@@ -1,7 +1,7 @@
 from os import system, name
-import time
 from players.human import Human
 from players.ai import Ai
+import time
 class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []
@@ -101,7 +101,7 @@ class RpslsGame:
     #Asks player for HvH, HvA, or AvA
     def assign_players(self) -> None:
         selection_made = False
-        
+
         RpslsGame._clear_screen()
         print("Please choose the player settings:\n\n")
         print("1. You versus an AI")
