@@ -14,6 +14,8 @@ class Player:
 
     #Sets 2 players against eachother
     def battle(p1, p2):
+        p1.round_winner = False
+        p2.round_winner = False
         Player._clear_screen()
         print(f'{p1.name} is going\n')
         p1.gesture = p1.gesture.set_gesture(p1.select_gesture())
