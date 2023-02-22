@@ -6,7 +6,6 @@ class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []
 
-
         self.display_welcome()
         self.display_rules()
         self.assign_players()
@@ -18,6 +17,7 @@ class RpslsGame:
         print("Welcome to the Rock, Paper, Scissors, Lizzard, Spock Game")
         print("---------------------------------------------------------")
 
+    #Plays a single round
     def perform_round(self) -> None:
         RpslsGame._clear_screen()
         print("Current scores: ")
@@ -46,28 +46,12 @@ class RpslsGame:
             winner_list[0].points += 1
         input("\n\n\nPress ENTER for the next round")
 
-    def __display_gesture_choices(player):
-        for i in range(0, player.gestures):
-            print(f"{i + 1}. {player.gestures[i]}")
+    #Loop rounds
+    def play(self) -> None:
+        while self._player_list[0].points < 2 and self._player_list[1].points < 2:
+            self.perform_round()
 
-    def __get_valid_gesture_selection(self) -> int:
-        valid_selection = False
-        selection_index = -1
-        print("\n\n")
-        while not valid_selection:
-            input_as_string = input("Your Selection: ")
-            try:
-                selection_index = int(input_as_string)
-                selection_index -= 1
-                if selection_index < 0 or selection_index > (len(self._player_list[0].gestures) - 1):
-                    raise Exception()
-                else:
-                    valid_selection = True
-            except:
-                print("Invalid selection\n")
-        return selection_index
-
-    #determines winner of each round
+    #Determines winner of each round
     def determine_winner(self):
         gesture_win_against = {'rock':['lizard', 'scissors'], 'paper':['rock', 'spock'], 'scissors':['lizard', 'paper'], 'lizard':['spock','paper'], 'spock':['rock', 'scissors']}
         for lossing_gesture in gesture_win_against[self._player_list[0].selected_gesture]:
@@ -78,7 +62,7 @@ class RpslsGame:
                 return [self._player_list[1]]
         return self._player_list
 
-    #determines and displays overall winner
+    #Determines and displays overall winner
     def display_overall_winner(self) -> None:
         RpslsGame._clear_screen()
         print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
@@ -95,10 +79,7 @@ class RpslsGame:
             print(f'{rule}')
         input("\n\n\n\nPress ENTER to choose the players")
 
-    def play(self) -> None:
-        while self._player_list[0].points < 2 and self._player_list[1].points < 2:
-            self.perform_round()
-
+    #Asks play for HvH or HvA
     def assign_players(self) -> None:
         selection_made = False
         self._player_list.append(Human("Player 1"))
@@ -124,11 +105,11 @@ class RpslsGame:
                 print("Input not recognized")
         input("Press enter when you are ready to play")
 
+    #clears the terminal
     def _clear_screen() -> None:
         # for windows
         if name == 'nt':
             _ = system('cls')
-
         # for mac and linux(here, os.name is 'posix')
         else:
             _ = system('clear')
