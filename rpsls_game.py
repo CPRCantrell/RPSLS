@@ -5,10 +5,13 @@ import time
 class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []
+        self._play_to_points = 0
 
         self.display_welcome()
         self.display_rules()
         self.assign_players()
+        self.assign_playto_points()
+        input("\n\nPress enter when you are ready to play")
         self.play()
         self.display_overall_winner()
 
@@ -54,7 +57,7 @@ class RpslsGame:
 
     #Loop rounds
     def play(self) -> None:
-        while self._player_list[0].points < 2 and self._player_list[1].points < 2:
+        while self._player_list[0].points < self._play_to_points and self._player_list[1].points < self._play_to_points:
             self.perform_round()
 
     #Determines winner of each round
@@ -71,7 +74,7 @@ class RpslsGame:
     #Determines and displays overall winner
     def display_overall_winner(self) -> None:
         RpslsGame._clear_screen()
-        print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
+        print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == self._play_to_points else self._player_list[1].name}!\n\n')
 
     #displays the rules
     def display_rules(self) -> None:
@@ -85,6 +88,16 @@ class RpslsGame:
             time.sleep(.2)
             print(f'{rule}')
         input("\n\n\n\nPress ENTER to choose the players")
+
+    def assign_playto_points(self) -> None:
+        while True:
+            try:
+                self._play_to_points = int(input("\nHow many points should we play to: "))
+                if self._play_to_points < 1:
+                    raise Exception()
+                return None
+            except:
+                print("Input not recognized")
 
     #Asks player for HvH, HvA, or AvA
     def assign_players(self) -> None:
@@ -123,7 +136,7 @@ class RpslsGame:
                     raise Exception()
             except:
                 print("Input not recognized")
-        input("\n\nPress enter when you are ready to play")
+        
 
     #clears the terminal
     def _clear_screen() -> None:
