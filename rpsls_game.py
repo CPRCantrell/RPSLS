@@ -85,6 +85,7 @@ class RpslsGame:
         RpslsGame._clear_screen()
         print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
 
+    #displays the rules
     def display_rules(self) -> None:
         print("\n\nYou will choose to either play against an AI, or against another player")
         print("When the game starts, you will be given an opportunity to select which gesture you")
@@ -97,7 +98,7 @@ class RpslsGame:
             print(f'{rule}')
         input("\n\n\n\nPress ENTER to choose the players")
 
-    #Asks play for HvH or HvA
+    #Asks player for HvH, HvA, or AvA
     def assign_players(self) -> None:
         selection_made = False
         
