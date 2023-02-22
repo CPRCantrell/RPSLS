@@ -7,8 +7,8 @@ class Player:
         self.selected_gesture = None
 
     #Overridden in child classes (Human & Ai)
-    def select_gesture():
-        pass
+    def select_gesture(self):
+        return self.selected_gesture
 
     #Override string to print gesture selected
     def __str__(self) -> str:
