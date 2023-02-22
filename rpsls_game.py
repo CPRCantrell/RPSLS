@@ -142,5 +142,3 @@ class RpslsGame:
         # for mac and linux(here, os.name is 'posix')
         else:
             _ = system('clear')
-
-
