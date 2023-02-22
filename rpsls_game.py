@@ -12,29 +12,31 @@ class RpslsGame:
 
     def perform_round(self) -> None:
         RpslsGame._clear_screen()
-        print(f"Currently playing: {self._player_list[0]}")
-        print(f"\nSelect from the following plays:\n\n")
-        self.__display_gesture_choices(self._player_list[0])
-        selection_index = self.__get_valid_gesture_selection()
-        self._player_list[0].selected_gesture = selection_index
+        print("Current scores: ")
+        print(f"{self._player_list[0].name}: {self._player_list[0].points}")
+        print(f"{self._player_list[1].name}: {self._player_list[1].points}\n\n")
+        print(f"Currently playing: {self._player_list[0].name}")
+        self._player_list[0].select_gesture()
+
+        if type(self._player_list[1]) == Human:
+            RpslsGame._clear_screen()
+            input("Press ENTER when you have switched players")
+            RpslsGame._clear_screen()
+            print(f"Currently playing: {self._player_list[1].name}")
+            self._player_list[1].select_gesture()
+            input("Press ENTER to see the winner")
+        else:
+            self._player_list[1].select_gesture()
         RpslsGame._clear_screen()
-        input("Press ENTER when you have switched players")
-        RpslsGame._clear_screen()
-        print(f"Currently playing: {self._player_list[1]}")
-        print(f"\nSelect from the following plays:\n\n")
-        self.__display_gesture_choices(self._player_list[1])
-        selection_index = self.__get_valid_gesture_selection()
-        self._player_list[1].selected_gesture = selection_index
-        RpslsGame._clear_screen()
-        input("Press ENTER to see the winner")
-        print(f"{self._player_list[0].name} threw {self._player_list[0].gestures[self._player_list[0].selected_gesture]}")
-        print(f"{self._player_list[1].name} threw {self._player_list[0].gestures[self._player_list[1].selected_gesture]}\n\n")
+        print(f"{self._player_list[0].name} threw {self._player_list[0]}")
+        print(f"{self._player_list[1].name} threw {self._player_list[1]}\n\n")
         winner_list = self.determine_winner()
-        if len(winner_list == 2):
+        if len(winner_list) == 2:
             print("It's a tie!")
         else:
             print(f"{winner_list[0].name} wins!")
             winner_list[0].points += 1
+        input("\n\n\nPress ENTER for the next round")
 
     def __display_gesture_choices(player):
         for i in range(0, player.gestures):
@@ -62,10 +64,10 @@ class RpslsGame:
         gesture_win_against = {'rock':['lizard', 'scissors'], 'paper':['rock', 'spock'], 'scissors':['lizard', 'paper'], 'lizard':['spock','paper'], 'spock':['rock', 'scissors']}
         for lossing_gesture in gesture_win_against[self._player_list[0].selected_gesture]:
             if self._player_list[1].selected_gesture == lossing_gesture:
-                return list(self._player_list[0])
+                return [self._player_list[0]]
         for lossing_gesture in gesture_win_against[self._player_list[1].selected_gesture]:
             if self._player_list[0].selected_gesture == lossing_gesture:
-                return list(self._player_list[1])
+                return [self._player_list[1]]
         return self._player_list
 
     #determines and displays overall winner
@@ -98,7 +100,7 @@ class RpslsGame:
                 input_string = input("\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
-                    self._player_list.append(Ai("AI Player"))
+                    self._player_list.append(Ai())
                     print("\nCreated Human versus AI game")
                     selection_made = True
                 elif input_as_int == 2:
@@ -126,4 +128,4 @@ game = RpslsGame()
 game.display_welcome()
 game.display_rules()
 game.assign_players()
-game.perform_round()
+game.play()

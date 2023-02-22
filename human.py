@@ -25,7 +25,7 @@ class Human(Player):
             time.sleep(.5)
             user_input = input('Which option would you like to select: ')
             for gesture in range(len(self.gestures)):
-                if user_input.lower() == str(gesture) or user_input.lower() == self.gestures[gesture]:
+                if user_input.lower() == str(gesture + 1) or user_input.lower() == self.gestures[gesture]:
                     self.selected_gesture = self.gestures[gesture]
                     return None
             print('That was not a valid input! You may enter the word or number from the above options.')
