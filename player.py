@@ -13,4 +13,3 @@ class Player:
     #Override string to print gesture selected
     def __str__(self) -> str:
         return self.selected_gesture
-        
