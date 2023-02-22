@@ -12,6 +12,9 @@ class RpslsGame:
 
     def perform_round(self) -> None:
         RpslsGame._clear_screen()
+        print("Current scores: ")
+        print(f"{self._player_list[0].name}: {self._player_list[0].points}")
+        print(f"{self._player_list[1].name}: {self._player_list[1].points}\n\n")
         print(f"Currently playing: {self._player_list[0].name}")
         self._player_list[0].select_gesture()
 
@@ -25,16 +28,15 @@ class RpslsGame:
         else:
             self._player_list[1].select_gesture()
         RpslsGame._clear_screen()
-        print(self._player_list[0])
-        print(self._player_list[0].name)
         print(f"{self._player_list[0].name} threw {self._player_list[0]}")
         print(f"{self._player_list[1].name} threw {self._player_list[1]}\n\n")
         winner_list = self.determine_winner()
-        if len(winner_list == 2):
+        if len(winner_list) == 2:
             print("It's a tie!")
         else:
             print(f"{winner_list[0].name} wins!")
             winner_list[0].points += 1
+        input("\n\n\nPress ENTER for the next round")
 
     def __display_gesture_choices(player):
         for i in range(0, player.gestures):
@@ -62,10 +64,10 @@ class RpslsGame:
         gesture_win_against = {'rock':['lizard', 'scissors'], 'paper':['rock', 'spock'], 'scissors':['lizard', 'paper'], 'lizard':['spock','paper'], 'spock':['rock', 'scissors']}
         for lossing_gesture in gesture_win_against[self._player_list[0].selected_gesture]:
             if self._player_list[1].selected_gesture == lossing_gesture:
-                return list(self._player_list[0])
+                return [self._player_list[0]]
         for lossing_gesture in gesture_win_against[self._player_list[1].selected_gesture]:
             if self._player_list[0].selected_gesture == lossing_gesture:
-                return list(self._player_list[1])
+                return [self._player_list[1]]
         return self._player_list
 
     #determines and displays overall winner
