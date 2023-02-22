@@ -20,21 +20,24 @@ class RpslsGame:
 
     #Plays a single round
     def perform_round(self) -> None:
-        self.__perform_player_half(self._player_list[0])
-        self.__perform_player_half(self._player_list[1])
+        Human.battle(self._player_list[0], self._player_list[1])
         self.__display_round_results()
 
     #Displays the results of the round
     def __display_round_results(self) -> None:
         RpslsGame._clear_screen()
-        print(f"{self._player_list[0].name} threw {self._player_list[0]}")
-        print(f"{self._player_list[1].name} threw {self._player_list[1]}\n\n")
-        winner_list = self.determine_winner()
-        if len(winner_list) == 2:
-            print("It's a tie!")
+        print(f"{self._player_list[0]} threw {self._player_list[0].gesture}")
+        print(f"{self._player_list[1]} threw {self._player_list[1].gesture}\n\n")
+
+        if self._player_list[0].round_winner:
+            self._player_list[0].points += 1
+            print(f"{self._player_list[0]} won!")
+        elif self._player_list[1].round_winner:
+            self._player_list[1].points += 1
+            print(f"{self._player_list[1]} won!")
         else:
-            print(f"{winner_list[0].name} won!")
-            winner_list[0].points += 1
+            print("It's a tie!")
+
         print("\n\n")
         self.__display_scores()
         if self._player_list[0].points != 2 and self._player_list[1].points != 2:
@@ -46,8 +49,8 @@ class RpslsGame:
     def __display_scores(self) -> None:
         print("Current scores")
         print("--------------")
-        print(f"{self._player_list[0].name}: {self._player_list[0].points}")
-        print(f"{self._player_list[1].name}: {self._player_list[1].points}\n\n")
+        print(f"{self._player_list[0]}: {self._player_list[0].points}")
+        print(f"{self._player_list[1]}: {self._player_list[1].points}\n\n")
 
     #Performs a selection screen if the Player is human, just selects in the Player is an AI
     def __perform_player_half(self, player) -> None:
@@ -112,7 +115,7 @@ class RpslsGame:
                 input_string = input("\n\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
-                    self._player_list.append(Human("You"))
+                    self._player_list.append(Human("Player 1"))
                     self._player_list.append(Ai())
                     print("\nCreated Human versus AI game")
                     selection_made = True
@@ -135,7 +138,7 @@ class RpslsGame:
                     raise Exception()
             except:
                 print("Input not recognized")
-        input("Press enter when you are ready to play")
+        input("\n\nPress enter when you are ready to play")
 
     #clears the terminal
     def _clear_screen() -> None:

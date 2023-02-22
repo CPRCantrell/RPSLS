@@ -14,7 +14,7 @@ class Human(Player):
     def verify_user_input(self):
         while True:
             time.sleep(.5)
-            user_input = input('Which option would you like to select: ')
+            user_input = input('\nWhich option would you like to select: ')
             for gesture in range(len(self.gesture.possible_gestures)):
                 if user_input.lower() == str(gesture + 1) or user_input.lower() == self.gesture.possible_gestures[gesture]:
                     return gesture
