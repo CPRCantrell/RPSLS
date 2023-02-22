@@ -68,8 +68,10 @@ class RpslsGame:
                 return list(self._player_list[1])
         return self._player_list
 
+    #determines and displays overall winner
     def display_overall_winner(self) -> None:
-        pass
+        self._clear_screen()
+        print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
 
     def display_rules(self) -> None:
         print("\n\nYou will choose the either play by yourself against an AI, or against another player")
@@ -107,7 +109,7 @@ class RpslsGame:
                     raise Exception()
             except:
                 print("Input not recognized")
-        input("Press enter when you are ready to play")       
+        input("Press enter when you are ready to play")
 
     def _clear_screen() -> None:
         # for windows
