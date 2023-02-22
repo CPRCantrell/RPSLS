@@ -1,7 +1,7 @@
 from os import system, name
 import time
-from human import Human
-from ai import Ai
+from players.human import Human
+from players.ai import Ai
 class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []

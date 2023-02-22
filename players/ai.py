@@ -1,4 +1,4 @@
-from player import Player
+from .player import Player
 import random as r
 class Ai(Player):
     #initializing with name being randomly chosen
@@ -8,5 +8,4 @@ class Ai(Player):
 
     #Override from Player class / Ai randomly selects an option and returns it
     def select_gesture(self):
-        self.selected_gesture = r.choice(self.gestures)
-        return self.selected_gesture
+        return r.randrange(5)
