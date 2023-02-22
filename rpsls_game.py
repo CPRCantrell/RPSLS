@@ -12,8 +12,16 @@ class RpslsGame:
     def perform_round(self) -> None:
         pass
 
-    def determine_winner(self, player_one, gesture_one, player_two, gesture_two):
-        pass
+    #determines winner of each round
+    def determine_winner(self):
+        gesture_win_against = {'rock':['lizard', 'scissors'], 'paper':['rock', 'spock'], 'scissors':['lizard', 'paper'], 'lizard':['spock','paper'], 'spock':['rock', 'scissors']}
+        for lossing_gesture in gesture_win_against[self._player_list[0].selected_gesture]:
+            if self._player_list[1].selected_gesture == lossing_gesture:
+                return list(self._player_list[0])
+        for lossing_gesture in gesture_win_against[self._player_list[1].selected_gesture]:
+            if self._player_list[0].selected_gesture == lossing_gesture:
+                return list(self._player_list[1])
+        return self._player_list
 
     def display_overall_winner(self) -> None:
         pass
@@ -60,7 +68,7 @@ class RpslsGame:
         # for windows
         if name == 'nt':
             _ = system('cls')
-    
+
         # for mac and linux(here, os.name is 'posix')
         else:
             _ = system('clear')
