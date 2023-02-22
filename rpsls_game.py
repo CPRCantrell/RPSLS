@@ -33,7 +33,7 @@ class RpslsGame:
         if len(winner_list) == 2:
             print("It's a tie!")
         else:
-            print(f"{winner_list[0].name} wins!")
+            print(f"{winner_list[0].name} won!")
             winner_list[0].points += 1
         print("\n\n")
         self.__display_scores()
