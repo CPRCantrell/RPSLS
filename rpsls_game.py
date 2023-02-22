@@ -8,9 +8,54 @@ class RpslsGame:
     def display_welcome(self) -> None:
         RpslsGame._clear_screen()
         print("Welcome to the Rock, Paper, Scissors, Lizzard, Spock Game")
+        print("---------------------------------------------------------")
 
     def perform_round(self) -> None:
-        pass
+        RpslsGame._clear_screen()
+        print(f"Currently playing: {self._player_list[0]}")
+        print(f"\nSelect from the following plays:\n\n")
+        self.__display_gesture_choices(self._player_list[0])
+        selection_index = self.__get_valid_gesture_selection()
+        self._player_list[0].selected_gesture = selection_index
+        RpslsGame._clear_screen()
+        input("Press ENTER when you have switched players")
+        RpslsGame._clear_screen()
+        print(f"Currently playing: {self._player_list[1]}")
+        print(f"\nSelect from the following plays:\n\n")
+        self.__display_gesture_choices(self._player_list[1])
+        selection_index = self.__get_valid_gesture_selection()
+        self._player_list[1].selected_gesture = selection_index
+        RpslsGame._clear_screen()
+        input("Press ENTER to see the winner")
+        print(f"{self._player_list[0].name} threw {self._player_list[0].gestures[self._player_list[0].selected_gesture]}")
+        print(f"{self._player_list[1].name} threw {self._player_list[0].gestures[self._player_list[1].selected_gesture]}\n\n")
+        winner_list = self.determine_winner()
+        if len(winner_list == 2):
+            print("It's a tie!")
+        else:
+            print(f"{winner_list[0].name} wins!")
+            winner_list[0].points += 1
+
+    def __display_gesture_choices(player):
+        for i in range(0, player.gestures):
+            print(f"{i + 1}. {player.gestures[i]}")
+
+    def __get_valid_gesture_selection(self) -> int:
+        valid_selection = False
+        selection_index = -1
+        print("\n\n")
+        while not valid_selection:
+            input_as_string = input("Your Selection: ")
+            try:
+                selection_index = int(input_as_string)
+                selection_index -= 1
+                if selection_index < 0 or selection_index > (len(self._player_list[0].gestures) - 1):
+                    raise Exception()
+                else:
+                    valid_selection = True
+            except:
+                print("Invalid selection\n")
+        return selection_index
 
     #determines winner of each round
     def determine_winner(self):
@@ -62,7 +107,7 @@ class RpslsGame:
                     raise Exception()
             except:
                 print("Input not recognized")
-        input("Press enter when you are ready to play")
+        input("Press enter when you are ready to play")       
 
     def _clear_screen() -> None:
         # for windows
@@ -74,3 +119,9 @@ class RpslsGame:
             _ = system('clear')
 
 
+game = RpslsGame()
+
+game.display_welcome()
+game.display_rules()
+game.assign_players()
+game.perform_round()
