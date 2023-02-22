@@ -52,21 +52,6 @@ class RpslsGame:
         print(f"{self._player_list[0]}: {self._player_list[0].points}")
         print(f"{self._player_list[1]}: {self._player_list[1].points}\n\n")
 
-    #Performs a selection screen if the Player is human, just selects in the Player is an AI
-    def __perform_player_half(self, player) -> None:
-        if type(player) == Human:
-            RpslsGame._clear_screen()
-            self.__display_scores()
-            print(f"Currently playing: {player.name}")
-            player.select_gesture()
-            RpslsGame._clear_screen()
-            if player is self._player_list[0] and type(self._player_list[1]) == Human:
-                input("Press ENTER when to move to the next player")
-            else:
-                input("Press ENTER when ready to see the results")
-        else:
-            player.select_gesture()
-
     #Loop rounds
     def play(self) -> None:
         while self._player_list[0].points < 2 and self._player_list[1].points < 2:
