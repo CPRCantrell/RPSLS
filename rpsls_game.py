@@ -37,7 +37,7 @@ class RpslsGame:
             winner_list[0].points += 1
         print("\n\n")
         self.__display_scores()
-        if self._player_list[0].points != 2 and self._player_list[1].point != 2:
+        if self._player_list[0].points != 2 and self._player_list[1].points != 2:
             input("\n\nPress ENTER for the next round")
         else:
             input("\n\nPress ENTER to see the winner!")
@@ -105,11 +105,11 @@ class RpslsGame:
         RpslsGame._clear_screen()
         print("Please choose the player settings:\n\n")
         print("1. You versus an AI")
-        print("2. You versus another human Player\n")
+        print("2. You versus another human Player")
         print("3. AI versus AI")
         while not selection_made:
             try:
-                input_string = input("\nYour Selection: ")
+                input_string = input("\n\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
                     self._player_list.append(Human("You"))
@@ -123,6 +123,8 @@ class RpslsGame:
                     selection_made = True
                 elif input_as_int == 3:
                     self._player_list.append(Ai())
+                    selection_made = True
+                    print("\nCreated AI vs AI game")
                     duplicate_name = True
                     while duplicate_name:
                         temp_ai = Ai()
