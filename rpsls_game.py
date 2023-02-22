@@ -4,6 +4,13 @@ from ai import Ai
 class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []
+        
+
+        self.display_welcome()
+        self.display_rules()
+        self.assign_players()
+        self.play()
+        self.display_overall_winner()
 
     def display_welcome(self) -> None:
         RpslsGame._clear_screen()
@@ -72,7 +79,7 @@ class RpslsGame:
 
     #determines and displays overall winner
     def display_overall_winner(self) -> None:
-        self._clear_screen()
+        RpslsGame._clear_screen()
         print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
 
     def display_rules(self) -> None:
@@ -123,9 +130,3 @@ class RpslsGame:
             _ = system('clear')
 
 
-game = RpslsGame()
-
-game.display_welcome()
-game.display_rules()
-game.assign_players()
-game.play()
