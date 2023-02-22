@@ -43,7 +43,7 @@ class RpslsGame:
 
         print("\n\n")
         self.__display_scores()
-        if self._player_list[0].points != 2 and self._player_list[1].points != 2:
+        if self._player_list[0].points != self._play_to_points and self._player_list[1].points != self._play_to_points:
             input("\n\nPress ENTER for the next round")
         else:
             input("\n\nPress ENTER to see the winner!")
@@ -136,7 +136,7 @@ class RpslsGame:
                     raise Exception()
             except:
                 print("Input not recognized")
-        
+
 
     #clears the terminal
     def _clear_screen() -> None:
