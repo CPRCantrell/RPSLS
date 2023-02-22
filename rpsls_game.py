@@ -12,6 +12,7 @@ class RpslsGame:
         self.play()
         self.display_overall_winner()
 
+    #Displays welcome message
     def display_welcome(self) -> None:
         RpslsGame._clear_screen()
         print("Welcome to the Rock, Paper, Scissors, Lizzard, Spock Game")
@@ -19,22 +20,12 @@ class RpslsGame:
 
     #Plays a single round
     def perform_round(self) -> None:
-        RpslsGame._clear_screen()
-        print("Current scores: ")
-        print(f"{self._player_list[0].name}: {self._player_list[0].points}")
-        print(f"{self._player_list[1].name}: {self._player_list[1].points}\n\n")
-        print(f"Currently playing: {self._player_list[0].name}")
-        self._player_list[0].select_gesture()
+        self.__perform_player_half(self._player_list[0])
+        self.__perform_player_half(self._player_list[1])
+        self.__display_round_results()
 
-        if type(self._player_list[1]) == Human:
-            RpslsGame._clear_screen()
-            input("Press ENTER when you have switched players")
-            RpslsGame._clear_screen()
-            print(f"Currently playing: {self._player_list[1].name}")
-            self._player_list[1].select_gesture()
-            input("Press ENTER to see the winner")
-        else:
-            self._player_list[1].select_gesture()
+    #Displays the results of the round
+    def __display_round_results(self) -> None:
         RpslsGame._clear_screen()
         print(f"{self._player_list[0].name} threw {self._player_list[0]}")
         print(f"{self._player_list[1].name} threw {self._player_list[1]}\n\n")
@@ -42,9 +33,36 @@ class RpslsGame:
         if len(winner_list) == 2:
             print("It's a tie!")
         else:
-            print(f"{winner_list[0].name} wins!")
+            print(f"{winner_list[0].name} won!")
             winner_list[0].points += 1
-        input("\n\n\nPress ENTER for the next round")
+        print("\n\n")
+        self.__display_scores()
+        if self._player_list[0].points != 2 and self._player_list[1].points != 2:
+            input("\n\nPress ENTER for the next round")
+        else:
+            input("\n\nPress ENTER to see the winner!")
+
+    #Displays the current scores
+    def __display_scores(self) -> None:
+        print("Current scores")
+        print("--------------")
+        print(f"{self._player_list[0].name}: {self._player_list[0].points}")
+        print(f"{self._player_list[1].name}: {self._player_list[1].points}\n\n")
+
+    #Performs a selection screen if the Player is human, just selects in the Player is an AI
+    def __perform_player_half(self, player) -> None:
+        if type(player) == Human:
+            RpslsGame._clear_screen()
+            self.__display_scores()
+            print(f"Currently playing: {player.name}")
+            player.select_gesture()
+            RpslsGame._clear_screen()
+            if player is self._player_list[0] and type(self._player_list[1]) == Human:
+                input("Press ENTER when to move to the next player")
+            else:
+                input("Press ENTER when ready to see the results")
+        else:
+            player.select_gesture()
 
     #Loop rounds
     def play(self) -> None:
@@ -67,6 +85,7 @@ class RpslsGame:
         RpslsGame._clear_screen()
         print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
 
+    #displays the rules
     def display_rules(self) -> None:
         print("\n\nYou will choose to either play against an AI, or against another player")
         print("When the game starts, you will be given an opportunity to select which gesture you")
@@ -79,26 +98,39 @@ class RpslsGame:
             print(f'{rule}')
         input("\n\n\n\nPress ENTER to choose the players")
 
-    #Asks play for HvH or HvA
+    #Asks player for HvH, HvA, or AvA
     def assign_players(self) -> None:
         selection_made = False
-        self._player_list.append(Human("Player 1"))
+        
         RpslsGame._clear_screen()
         print("Please choose the player settings:\n\n")
-        print("1. You versus an AI Player")
-        print("2. You versus another human Player\n")
+        print("1. You versus an AI")
+        print("2. You versus another human Player")
+        print("3. AI versus AI")
         while not selection_made:
             try:
-                input_string = input("\nYour Selection: ")
+                input_string = input("\n\nYour Selection: ")
                 input_as_int = int(input_string)
                 if input_as_int == 1:
+                    self._player_list.append(Human("You"))
                     self._player_list.append(Ai())
                     print("\nCreated Human versus AI game")
                     selection_made = True
                 elif input_as_int == 2:
+                    self._player_list.append(Human("Player 1"))
                     self._player_list.append(Human("Player 2"))
                     print("\nCreated Human versus AI game")
                     selection_made = True
+                elif input_as_int == 3:
+                    self._player_list.append(Ai())
+                    selection_made = True
+                    print("\nCreated AI vs AI game")
+                    duplicate_name = True
+                    while duplicate_name:
+                        temp_ai = Ai()
+                        if temp_ai.name != self._player_list[0].name:
+                            self._player_list.append(temp_ai)
+                            duplicate_name = False
                 else:
                     raise Exception()
             except:
