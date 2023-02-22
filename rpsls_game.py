@@ -1,10 +1,11 @@
 from os import system, name
+import time
 from human import Human
 from ai import Ai
 class RpslsGame:
     def __init__(self) -> None:
         self._player_list = []
-        
+
 
         self.display_welcome()
         self.display_rules()
@@ -83,12 +84,15 @@ class RpslsGame:
         print(f'\n\nThe winner is {self._player_list[0].name if self._player_list[0].points == 2 else self._player_list[1].name}!\n\n')
 
     def display_rules(self) -> None:
-        print("\n\nYou will choose the either play by yourself against an AI, or against another player")
+        print("\n\nYou will choose to either play against an AI, or against another player")
         print("When the game starts, you will be given an opportunity to select which gesture you")
         print("want to throw. You will pick from the following list of gestures:")
-        print("\nRock\nPaper\nScissors\nLizzard\nSpock")
-        print("\nFor whichever gesture you choose, it will be able to beat 2 other gestures and will")
-        print("be able to be beaten by two other gestures.")
+        print("\nRock\nPaper\nScissors\nLizard\nSpock")
+        print('\nRules are as followed:\n')
+        rules_list = ['Rock crushes Scissors','Scissors cuts Paper','Paper covers Rock','Rock crushes Lizard','Lizard poisons Spock','Spock smashes Scissors','Scissors decapitates Lizard','Lizard eats Paper','Paper disproves Spock','Spock vaporizes Rock']
+        for rule in rules_list:
+            time.sleep(.2)
+            print(f'{rule}')
         input("\n\n\n\nPress ENTER to choose the players")
 
     def play(self) -> None:
