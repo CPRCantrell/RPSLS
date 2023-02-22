@@ -117,7 +117,7 @@ class RpslsGame:
                     print("\nCreated Human versus AI game")
                     selection_made = True
                 elif input_as_int == 2:
-                    self._player_list.append(Human("You"))
+                    self._player_list.append(Human("Player 1"))
                     self._player_list.append(Human("Player 2"))
                     print("\nCreated Human versus AI game")
                     selection_made = True
